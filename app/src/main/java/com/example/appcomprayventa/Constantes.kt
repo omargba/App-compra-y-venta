@@ -6,6 +6,28 @@ import java.text.SimpleDateFormat
 
 
 object Constantes {
+    const val anuncio_disponible = "Disponible"
+    const val anuncio_vendido = "Vendido"
+
+    val categorias = arrayOf(
+        "Celulares",
+        "PCs/Laptops",
+        "Electronica y electrodomesticos",
+        "Automoviles",
+        "Consolas y videojuegos",
+        "Hogar y muebles",
+        "Belleza y cuidado personal",
+        "Libros",
+        "Deportes"
+    )
+
+    val condiciones = arrayOf(
+        "Nuevo",
+        "Usado",
+        "Reacondicionado"
+    )
+
+
     fun obtenerTiempoDis() : Long{
         return System.currentTimeMillis()
         }

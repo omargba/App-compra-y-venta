@@ -46,7 +46,7 @@
     <string name="Et_f_nac">Fecha de nac</string>
     <string name="Cod_tef">+00</string>
     <string name="Et_telefono">Telefono</string>
-    <string name="Btn_actualizar">Actualizar</string>"
+    <string name="Btn_actualizar">Actualizar</string>
 
 
     <!--    <string name="TxtOpciones">Opciones</string>-->
@@ -56,6 +56,16 @@
 
 
     <string name="TituloRL">Titulo</string>
+
+    <!-- Crear anuncio -->
+    <string name="Et_marca">Marca</string>
+    <string name="Categoria">Categoría</string>
+    <string name="Condicion">Condición</string>
+    <string name="Locacion">Locación</string>
+    <string name="Et_precio">Precio</string>
+    <string name="Et_titulo">Título</string>
+    <string name="Et_descripcion">Descripción</string>
+    <string name="Btn_crear_anuncio">Crear anuncio</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
