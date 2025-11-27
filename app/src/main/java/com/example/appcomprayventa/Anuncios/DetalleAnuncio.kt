@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.appcomprayventa.Adaptadores.AdaptadorSliderImagenes
 import com.example.appcomprayventa.databinding.ActivityDetalleAnuncioBinding
 import com.google.firebase.database.*
 
@@ -11,6 +12,8 @@ class DetalleAnuncio : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetalleAnuncioBinding
     private lateinit var idAnuncio: String
+    private var estadoActual: String = "Disponible"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,11 @@ class DetalleAnuncio : AppCompatActivity() {
         binding.btnEliminar.setOnClickListener {
             eliminarAnuncio()
         }
+
+        binding.btnVendido.setOnClickListener {
+            alternarEstado()
+        }
+
     }
 
     // ----------------------------------------------------------
@@ -43,6 +51,32 @@ class DetalleAnuncio : AppCompatActivity() {
 
         ref.get().addOnSuccessListener { snapshot ->
 
+            //----------------------------------------------------------
+            // 1️⃣ CARGAR TODAS LAS IMÁGENS PARA EL SLIDER
+            //----------------------------------------------------------
+            val listaImagenes = ArrayList<String>()
+            val imagenesSnap = snapshot.child("Imagenes")
+
+            for (img in imagenesSnap.children) {
+                val url = img.child("imagenUrl").value.toString()
+                if (url.isNotEmpty()) listaImagenes.add(url)
+            }
+
+            // Si no hay imágenes, agrega una de relleno
+            if (listaImagenes.isEmpty()) {
+                listaImagenes.add("https://via.placeholder.com/400")
+            }
+
+            // Asignar adaptador al ViewPager2
+            val adaptadorSlider = AdaptadorSliderImagenes(this, listaImagenes)
+            binding.viewPagerImagenes.adapter = adaptadorSlider
+
+            // Conectar dots
+            binding.dotsIndicator.attachTo(binding.viewPagerImagenes)
+
+            //----------------------------------------------------------
+            // 2️⃣ CARGAR TEXTO Y DEMÁS CAMPOS
+            //----------------------------------------------------------
             val titulo = snapshot.child("titulo").value.toString()
             val precio = snapshot.child("precio").value.toString()
             val descripcion = snapshot.child("descripcion").value.toString()
@@ -55,29 +89,44 @@ class DetalleAnuncio : AppCompatActivity() {
             binding.tvCategoria.text = categoria
             binding.tvEstado.text = estado
 
-            // 🔥 CAMBIAR TEXTO DEL BOTÓN AUTOMÁTICAMENTE
-            if (estado == "Vendido") {
-                binding.btnVendido.text = "Marcar como Disponible"
-            } else {
-                binding.btnVendido.text = "Marcar como Vendido"
-            }
+            //----------------------------------------------------------
+            // 3️⃣ GUARDAR Y AJUSTAR ESTADO
+            //----------------------------------------------------------
+            estadoActual = estado
 
-            // Visitas
+            binding.btnVendido.text =
+                if (estado == "Vendido") "Marcar como Disponible"
+                else "Marcar como Vendido"
+
+            //----------------------------------------------------------
+            // 4️⃣ VISITAS
+            //----------------------------------------------------------
             val visitas = snapshot.child("contadorVistas").value?.toString() ?: "0"
             binding.tvVisitas.text = "👁 $visitas visitas"
-
-            // Imagen principal
-            var urlImg = ""
-            val imagenes = snapshot.child("Imagenes")
-            for (img in imagenes.children) {
-                urlImg = img.child("imagenUrl").value.toString()
-                if (urlImg.isNotEmpty()) break
-            }
-
-            Glide.with(this)
-                .load(urlImg)
-                .into(binding.imgPrincipal)
         }
+    }
+
+
+    private fun alternarEstado() {
+        val ref = FirebaseDatabase.getInstance().getReference("Anuncios").child(idAnuncio)
+
+        val nuevoEstado =
+            if (estadoActual == "Vendido") "Disponible"
+            else "Vendido"
+
+        ref.child("estado").setValue(nuevoEstado)
+            .addOnSuccessListener {
+
+                // Actualizar UI
+                estadoActual = nuevoEstado
+                binding.tvEstado.text = nuevoEstado
+
+                if (nuevoEstado == "Vendido") {
+                    binding.btnVendido.text = "Marcar como Disponible"
+                } else {
+                    binding.btnVendido.text = "Marcar como Vendido"
+                }
+            }
     }
 
 

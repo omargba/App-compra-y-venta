@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.ccp)
     implementation(libs.firebaseStorage)
+    implementation(libs.dotsIndicator)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
