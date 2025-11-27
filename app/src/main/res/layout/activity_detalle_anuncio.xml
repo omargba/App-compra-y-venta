@@ -34,15 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Imagen -->
+            <!-- Imagen principal -->
             <ImageView
                 android:id="@+id/imgPrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:background="#EEEEEE"
-                android:src="@mipmap/ic_launcher" />
+                android:background="#EEEEEE" />
 
             <!-- Contenido -->
             <LinearLayout
@@ -55,7 +54,7 @@
                     android:id="@+id/tvTitulo"
                     android:text="Título del anuncio"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -64,8 +63,8 @@
                     android:text="$00.00"
                     android:textColor="#2E7D32"
                     android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginTop="4dp"
+                    android:textSize="20sp"
+                    android:layout_marginTop="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -82,13 +81,13 @@
                     android:text="Disponible"
                     android:textStyle="bold"
                     android:textColor="#1565C0"
+                    android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tvDescripcion"
-                    android:text="Descripción del artículo..."
+                    android:text="Descripción del artículo"
                     android:layout_marginTop="10dp"
                     android:textColor="#424242"
                     android:layout_width="match_parent"
@@ -99,5 +98,51 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <!-- CONTADOR DE VISITAS -->
+    <TextView
+        android:id="@+id/tvVisitas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="👁️ 0 visitas"
+        android:textColor="#555"
+        android:textSize="15sp"
+        android:layout_below="@id/cardData"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp" />
+
+    <!-- BOTONES -->
+    <LinearLayout
+        android:id="@+id/layoutButtons"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/btnVendido"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Marcar Vendido"
+            android:textAllCaps="false"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFF"
+            android:layout_marginRight="6dp" />
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Eliminar"
+            android:textAllCaps="false"
+            android:backgroundTint="#C62828"
+            android:textColor="#FFF"
+            android:layout_marginLeft="6dp" />
+
+    </LinearLayout>
 
 </RelativeLayout>
