@@ -9,7 +9,7 @@ class ModeloImagenSeleccionada {
     var deInternet = false
 
     constructor()
-    constructor(id: String, imagenUri: Uri, imagenUri2: String?, deInternet: Boolean) {
+    constructor(id: String, imagenUri: Uri?, imagenUri2: String?, deInternet: Boolean) {
         this.id = id
         this.imagenUri = imagenUri
         this.imagenUri2 = imagenUri2
